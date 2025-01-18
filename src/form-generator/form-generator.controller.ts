@@ -9,8 +9,7 @@ export class FormGeneratorController {
 
   @Post('generate')
   generateForm(@Body() config: FormConfigDto): { message: string } {
-    const outputFolder = './generated-forms'; // فولدر خروجی
-    const result = this.formGeneratorService.generateForm(config, outputFolder);
+    const result = this.formGeneratorService.generateForm(config);
     return { message: result };
   }
 }

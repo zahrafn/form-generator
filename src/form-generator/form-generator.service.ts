@@ -8,8 +8,11 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class FormGeneratorService {
-  generateForm(config: FormConfigDto, outputFolder: string): string {
-    const { formName, fields } = config;
+  generateForm(config: FormConfigDto): string {
+    const { formName, fields, outputFolder } = config;
+
+    // بررسی اینکه فقط نام فایل استفاده شود، نه یک مسیر
+    const sanitizedFormName = path.basename(formName);
 
     // ایجاد محتوای HTML فرم
     let formHtml = `<html>
@@ -40,11 +43,16 @@ export class FormGeneratorService {
 </body>
 </html>`;
 
-    // ذخیره فایل در فولدر خروجی
-    const outputPath = path.join(outputFolder, `${formName}.html`);
-    fs.mkdirSync(outputFolder, { recursive: true });
-    fs.writeFileSync(outputPath, formHtml, { encoding: 'utf-8' });
+    try {
+      // ذخیره فایل در فولدر خروجی
+      const outputPath = path.join(outputFolder, `${sanitizedFormName}.html`);
+      fs.mkdirSync(outputFolder, { recursive: true });
+      fs.writeFileSync(outputPath, formHtml, { encoding: 'utf-8' });
 
-    return `Form generated at: ${outputPath}`;
+      return `Form generated at: ${outputPath}`;
+    } catch (error) {
+      console.error('Error generating form:', error.message);
+      throw new Error(`Failed to generate form: ${error.message}`);
+    }
   }
 }
