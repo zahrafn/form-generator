@@ -98,6 +98,14 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
+<!-- nest new form-generator -->
+
+<!-- git init  -->
+
+<!-- git remote add origin https://github.com/zahrafn/form-generator.git -->
+
+<!-- git add . -->
+
 <!-- nest g module form-generator   -->
 
 <!-- nest g service form-generator -->
